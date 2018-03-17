@@ -18,8 +18,12 @@ class CreateCartsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('user_id')->unsigned();
+            $table->uuid('product_id')->unsigned();
+            $table->integer('qty');
+            $table->decimal('price',11,3);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE carts ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
 

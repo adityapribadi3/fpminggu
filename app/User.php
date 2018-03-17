@@ -15,7 +15,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'email', 'password','phone'
     ];
 
     /**
@@ -35,11 +35,11 @@ class User extends Authenticatable
     protected $primaryKey = "id";
 
     public function orders(){
-      return return $this->hasMany('App\Order');
+      return $this->hasMany('App\Order');
     }
 
     public function cart(){
-      return return $this->hasMany('App\Cart');
+      return $this->hasMany('App\Cart');
     }
 
 }

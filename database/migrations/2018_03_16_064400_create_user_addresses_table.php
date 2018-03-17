@@ -19,6 +19,8 @@ class CreateUserAddressesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('user_id')->unsigned();
+            $table->string('name');
+            $table->string('phone');
             $table->string('address');
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');

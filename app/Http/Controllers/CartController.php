@@ -18,6 +18,9 @@ public function insertCart(Request $request){
   $user = JWTAuth::toUser();
   $data = new Cart();
   $data['user_id'] = $user->input['id'];
+  $data['product_id'] = $request->input('product_id');
+  $data['qty'] = $request->input('qty');
+  $data['price'] = $request->input('price');
   $data->save();
 
   if($data==0){
@@ -62,7 +65,10 @@ try{
   $user = JWTAuth::toUser();
   $task = Cart::where('id','=',$request->input('id'))
           ->update([
-          'user_id' => $request->input('id')
+          'user_id' => $request->input('id'),
+          'product_id' => $request->input('product_id'),
+          'qty' => $request->input('qty'),
+          'price' => $request->input('price')
                   ]);
 
           if($task==0){

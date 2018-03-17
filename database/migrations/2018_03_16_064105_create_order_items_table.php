@@ -21,10 +21,10 @@ class CreateOrderItemsTable extends Migration
             $table->uuid('product_id')->unsigned();
             $table->integer('qty');
             $table->decimal('price');
-            $table->string('additional_information');
+            $table->text('additional_information');
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->foreign('product_id')->references('id')->on('product_details')->onDelete('cascade');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE order_items ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
 

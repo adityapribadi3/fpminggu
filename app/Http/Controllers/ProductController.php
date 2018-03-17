@@ -4,13 +4,15 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Product;
+use App\Categories;
 
 class ProductController extends Controller
 {
-  public function getProduct()
+  public function getProduct(Request $request, $name)
   {
-  return Product::all();
-}
+    $cat_id = Categories::where('category_name','=',$name)->first();
+    return Product::where('category_id','=',$cat_id)->get();
+  }
 
 public function insertProduct(Request $request){
   try{
