@@ -13,4 +13,8 @@ class ProductDetail extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function productdetails(){
+      return $this->belongsTo('App\Product','product_id');
+    }
 }

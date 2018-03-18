@@ -12,4 +12,8 @@ class PaymentMethod extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function Userpaymentmethods(){
+    return $this->belongsTo('App\UserPaymentMethod','payment_id');
+  }
 }

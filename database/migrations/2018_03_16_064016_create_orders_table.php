@@ -24,7 +24,10 @@ class CreateOrdersTable extends Migration
             $table->date('payment_date');
             $table->decimal('payment_amount');
             $table->date('max_payment_date');
-            $table->string('payment_status');
+            $table->varchar('payment_status');
+            $table->date('shipment_date');
+            $table->varchar('shipment_tracking_number');
+
             $table->foreign('user_id')->references('id')->on('users');
         });
         DB::statement('ALTER TABLE orders ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

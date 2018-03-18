@@ -13,4 +13,13 @@ class Order extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function orders(){
+      return $this->belongsTo('App\User','user_id');
+    }
+
+    public function orderitems(){
+      return $this->hasMany('App\OrderItem');
+    }
+
 }

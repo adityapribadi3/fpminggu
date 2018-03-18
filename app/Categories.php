@@ -12,4 +12,16 @@ class Categories extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function categories1(){
+      return $this->belongsTo('App\Categories','parent_category_id');
+    }
+
+    public function categories(){
+      return $this->hasMany('App\Categories');
+    }
+
+    public function categorydetails(){
+      return $this->hasMany('App\Category_detail');
+    }
 }

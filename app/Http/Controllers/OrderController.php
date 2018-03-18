@@ -24,11 +24,12 @@ public function insertOrder(Request $request){
     $data['user_id'] = $user['id'];
     $data['order_status'] = $request->input('order_status');
     $data['order_date'] = $request->input('order_date');
-    //$data['total_price'] = $request->input('total_price');
     $data['payment_date'] = $request->input('payment_date');
     $data['payment_amount'] = $request->input('payment_amount');
     $data['max_payment_date'] = $request->input('max_payment_date');
     $data['payment_status'] = $request->input('payment_status');
+    $data['shipment_date'] = $request->input('shipment_date');
+    $data['shipment_tracking_number'] = $request->input('shipment_tracking_number');
     $data->save();
 
     OrderItem::create([
@@ -86,7 +87,9 @@ public function insertOrder(Request $request){
            'payment_date' => $request->input('payment_date'),
            'payment_amount' => $request->input('payment_amount'),
            'max_payment_date' => $request->input('max_payment_date'),
-           'payment_status' => $request->input('payment_status')
+           'payment_status' => $request->input('payment_status'),
+           'shipment_date' = $request->input('shipment_date'),
+           'shipment_tracking_number' = $request->input('shipment_tracking_number')
 
                    ]);
 

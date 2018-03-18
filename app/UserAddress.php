@@ -13,4 +13,8 @@ class UserAddress extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function useraddress(){
+      return $this->belongsTo('App\User','user_id');
+    }
 }

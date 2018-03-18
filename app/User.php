@@ -34,6 +34,15 @@ class User extends Authenticatable
     ];
     protected $primaryKey = "id";
 
+
+    public function Userpaymentmethods(){
+      return $this->hasMany('App\UserPaymentMethod');
+    }
+
+    public function useraddress(){
+      return $this->hasMany('App\UserAddress');
+    }
+
     public function orders(){
       return $this->hasMany('App\Order');
     }
@@ -41,5 +50,9 @@ class User extends Authenticatable
     public function cart(){
       return $this->hasMany('App\Cart');
     }
+
+
+
+
 
 }

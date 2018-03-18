@@ -13,4 +13,12 @@ class UserPaymentMethod extends Model
         'id' => 'string'
     ];
     protected $primaryKey = "id";
+
+    public function paymentmethods(){
+      return $this->hasMany('App\PaymentMethod');
+    }
+
+    public function Userpaymentmethods(){
+      return $this->belongsTo('App\User','user_id');
+    }
 }
