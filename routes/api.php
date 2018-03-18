@@ -41,7 +41,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 
   Route::get('viewuadd', 'UserAddressController@getUserAddress');
   Route::post('insertuadd', 'UserAddressController@insertUserAddress');
-  Route::delete('deleteuadd', 'UserAddressController@deleteUserAddress');
+  Route::delete('deleteuadd/{id}', 'UserAddressController@deleteUserAddress');
   Route::put('updateuadd', 'UserAddressController@updateUserAddress');
 
   Route::get('viewc', 'CartController@getCart');

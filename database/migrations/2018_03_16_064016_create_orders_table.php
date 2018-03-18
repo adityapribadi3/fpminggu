@@ -21,12 +21,12 @@ class CreateOrdersTable extends Migration
             $table->string('order_status');
             $table->date('order_date');
             $table->decimal('total_price');
-            $table->date('payment_date');
-            $table->decimal('payment_amount');
+            $table->date('payment_date')->nullable();
+            $table->decimal('payment_amount')->nullable();
             $table->date('max_payment_date');
-            $table->varchar('payment_status');
-            $table->date('shipment_date');
-            $table->varchar('shipment_tracking_number');
+            $table->string('payment_status')->nullable();
+            $table->date('shipment_date')->nullable();
+            $table->string('shipment_tracking_number')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');
         });

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\UserAddress;
+use JWTAuth;
 
 class UserAddressController extends Controller
 {
@@ -17,18 +18,20 @@ public function insertUserAddress(Request $request){
   try{
   $user = JWTAuth::toUser();
   $data = new UserAddress();
+
+  $data['user_id'] = $user['id'];
   $data['name'] = $request->input('name');
   $data['address'] = $request->input('address');
-  $data['user_id'] = $user->['id'];
+  $data['phone'] = $request->input('phone');
   $data->save();
 
-  if($data==0){
+  if(!$data){
     return response([
       'msg'=>'fail'
     ],400);
   }else{
     return response([
-      'msg'=>'success',
+      'msg'=>'Added new address',
 
     ],200);
   }
@@ -39,9 +42,9 @@ public function insertUserAddress(Request $request){
 }
 }
 
-public function deleteUserAddress(Request $request){
+public function deleteUserAddress(Request $request, $id){
 try{
-  $task = UserAddress::where('id','=',$request->input('id'))->delete();
+  $task = UserAddress::where('id','=',$id)->delete();
 
   if($task==0){
     return response([
@@ -49,7 +52,7 @@ try{
     ],400);
   }else{
     return response([
-      'msg'=>'success'
+      'msg'=>'Address deleted'
     ],200);
   }
 }catch(Exception $error){

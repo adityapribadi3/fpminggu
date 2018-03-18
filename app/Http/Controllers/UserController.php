@@ -61,24 +61,21 @@ try{
 
 public function updateUserAccount(Request $request){
 try{
- $task = UserAccount::where('id','=',$request->input('id'))
+ $task = User::where('id','=',$request->input('id'))
          ->update([
 
-         'password' => $request->input('password'),
          'email' => $request->input('email'),
          'name' => $request->input('name'),
-         'phone' => $request->input('phone'),
-         'position' => $request->input('position'),
-         'success_trans' => $request->input('success_trans')
+         'phone' => $request->input('phone')
                    ]);
 
          if($task==0){
            return response([
-             'msg'=>'fail'
+             'msg'=>'Fail to update profile'
            ],400);
          }else{
            return response([
-             'msg'=>'success'
+             'msg'=>'Profile Updated'
            ],200);
          }
        }catch(Exception $error){

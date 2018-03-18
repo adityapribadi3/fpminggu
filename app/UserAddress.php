@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddress extends Model
 {
     public $incrementing = false;
-    protected $table = 'useraddress';
+    protected $table = 'user_addresses';
 
     protected $casts = [
         'id' => 'string'

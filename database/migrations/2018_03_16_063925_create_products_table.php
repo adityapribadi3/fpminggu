@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->decimal('product_price',11,3);
             $table->string('product_description');
             $table->integer('product_qty');
-            $table->integer('product_sold');
+            $table->integer('product_sold')->default('0');
             $table->text('product_img');
             $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');

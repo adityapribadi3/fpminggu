@@ -21,7 +21,7 @@ class CreateOrderItemsTable extends Migration
             $table->uuid('product_id')->unsigned();
             $table->integer('qty');
             $table->decimal('price');
-            $table->text('additional_information');
+            $table->text('additional_information')->nullable();
             $table->timestamps();
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
