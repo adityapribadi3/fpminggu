@@ -14,15 +14,15 @@ class UserController extends Controller
 public function insertUserAccount(Request $request){
  try{
  $data = new User();
- $data['password'] = $request->input('password');
+ $data['password'] = Hash::make($request->input('password'));
  $data['email'] = $request->input('email');
  $data['name'] = $request->input('name');
  $data['phone'] = $request->input('phone');
  $data['position'] = $request->input('position');
  $data['credit'] = $request->input('credit');
- $data->save();
+ $res = $data->save();
 
- if($data==0){
+ if($res==0){
    return response([
      'msg'=>'fail'
    ],400);

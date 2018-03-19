@@ -16,9 +16,9 @@ public function insertPaymentMethod(Request $request){
   try{
   $data = new PaymentMethod();
   $data['payment_name'] = $request->input('payment_name');
-  $data->save();
+  $res = $data->save();
 
-  if($data==0){
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);

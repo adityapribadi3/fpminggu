@@ -19,9 +19,9 @@ public function insertCategory(Request $request){
   $data['parent_category_id'] = $request->input('parent_category_id');
   $data['category_name'] = $request->input('category_name');
 
-  $data->save();
+  $res = $data->save();
 
-  if($data==0){
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);

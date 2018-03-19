@@ -19,9 +19,9 @@ public function insertCategoryDetail(Request $request){
   $data['category_id'] = $request->input('category_id');
   $data['key'] = $request->input('key');
 
-  $data->save();
+  $res = $data->save();
 
-  if($data==0){
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);

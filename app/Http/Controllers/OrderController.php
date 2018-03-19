@@ -30,14 +30,21 @@ public function insertOrder(Request $request){
     $data['payment_status'] = $request->input('payment_status');
     $data['shipment_date'] = $request->input('shipment_date');
     $data['shipment_tracking_number'] = $request->input('shipment_tracking_number');
-    $data->save();
+    $res = $data->save();
 
-    OrderItem::create([
-      'order_id' => $data->id,
-      ''
-    ]);
+    $cart = Cart::where('user_id', $user['id'])->get();
 
-  if($data==0){
+    foreach($cart as $it){
+      OrderItem::create([
+        'order_id' => $data->id,
+        'product_id' => $it['product_id'],
+        'qty' => $it['qty'],
+        'price' => $it['price'],
+        'additional_information' => $it['additional_information']
+      ]);
+    }
+
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);
@@ -56,8 +63,8 @@ public function insertOrder(Request $request){
 
  public function deleteOrder(Request $request){
  try{
-
-  $task =  Order::where('id','=',$request->input('id'))->delete();
+  $user = JWTAuth::toUser();
+  $task =  Order::where('id','=',$user->['id'])->delete();
 
    if($task==0){
      return response([
@@ -77,10 +84,11 @@ public function insertOrder(Request $request){
 
  public function updateOrder(Request $request){
  try{
-  $task =  Order::where('id','=',$request->input('id'))
+   $user = JWTAuth::toUser();
+   $task =  Order::where('id','=',$user['id'])
            ->update([
-            $user = JWTAuth::toUser();
-           'user_id' => $user->input('id'),
+
+           'user_id' => $user['id'],
            'order_status' => $request->input('order_status'),
            'order_date' => $request->input('order_date'),
            'total_price' => $request->input('total_price'),

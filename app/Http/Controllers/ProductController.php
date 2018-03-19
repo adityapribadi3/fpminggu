@@ -24,9 +24,9 @@ public function insertProduct(Request $request){
   $data['product_img'] = $request->input('product_img');
   $data['category_id'] = $request->input('category_id');
   $data['product_sold'] = $request->input('product_sold');
-  $data->save();
+  $res = $data->save();
 
-  if($data==0){
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);

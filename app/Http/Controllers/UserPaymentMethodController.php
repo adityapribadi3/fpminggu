@@ -18,11 +18,11 @@ public function insertUserPaymentMethod(Request $request){
   try{
   $user = JWTAuth::toUser();
   $data = new UserPaymentMethod();
-  $data['user_id'] = $user->input['id'];
+  $data['user_id'] = $user['id'];
   $data['payment_id'] = $request->input('payment_id');
-  $data->save();
+  $res = $data->save();
 
-  if($data==0){
+  if($res==0){
     return response([
       'msg'=>'fail'
     ],400);
@@ -41,7 +41,8 @@ public function insertUserPaymentMethod(Request $request){
 
 public function deleteUserPaymentMethod(Request $request){
 try{
-  $task = UserAccount::where('id','=',$request->input('id'))->delete();
+  $user = JWTAuth::toUser();
+  $task = UserAccount::where('id','=',$user['id'])->delete();
 
   if($task==0){
     return response([
@@ -62,9 +63,9 @@ try{
 public function updateUserPaymentMethod(Request $request){
 try{
   $user = JWTAuth::toUser();
-  $task = UserPaymentMethod::where('id','=',$request->input('id'))
+  $task = UserPaymentMethod::where('id','=',$user['id'])
           ->update([
-          'user_id' => $user->input('id'),
+          'user_id' => $user['id'],
           'payment_id' => $request->input('payment_id')
 
                   ]);
