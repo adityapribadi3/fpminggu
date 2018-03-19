@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDetail extends Model
 {
     public $incrementing = false;
-    protected $table = 'productdetails';
+    protected $table = 'product_details';
 
     protected $casts = [
         'id' => 'string'
@@ -15,6 +15,6 @@ class ProductDetail extends Model
     protected $primaryKey = "id";
 
     public function productdetails(){
-      return $this->belongsTo('App\Product','product_id');
+      return $this->belongsTo('App\Product','id');
     }
 }

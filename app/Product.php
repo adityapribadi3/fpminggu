@@ -14,7 +14,7 @@ class Product extends Model
     ];
     protected $primaryKey = "id";
 
-    public function products1(){
+    public function cart(){
       return $this->belongsTo('App\Cart','product_id');
     }
 
@@ -23,6 +23,6 @@ class Product extends Model
     }
 
     public function productdetails(){
-      return $this->hasMany('App\ProductDetail');
+      return $this->hasMany('App\ProductDetail','product_id');
     }
 }

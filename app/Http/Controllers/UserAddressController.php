@@ -69,7 +69,7 @@ try{
           ->update([
           'name' => $request->input('name'),
           'address' => $request->input('address'),
-          'user_id' => $user->['id']
+          'user_id' => $user['id']
                   ]);
 
           if($task==0){

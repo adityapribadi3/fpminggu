@@ -4,14 +4,24 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Cart;
+use App\Product;
 use JWTAuth;
 
 class CartController extends Controller
 {
   public function getCart()
   {
-  $user = JWTAuth::toUser();
-  return $user->carts;
+    $user = JWTAuth::toUser();
+    $cart_items = array();
+    $carts = $user->cart;
+
+    foreach($carts as $cart){
+      array_push($cart_items,$cart->product_id);
+    }
+
+    Product::find()
+
+    return $cart_items;
   }
 
 public function insertCart(Request $request){

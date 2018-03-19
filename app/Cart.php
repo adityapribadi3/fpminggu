@@ -14,11 +14,11 @@ class Cart extends Model
     ];
     protected $primaryKey = "id";
 
-    public function carts(){
+    public function user(){
       return $this->belongsTo('App\User','user_id');
     }
 
     public function products(){
-      return $this->hasMany('App\Product');
+      return $this->hasMany('App\Product','id');
     }
 }

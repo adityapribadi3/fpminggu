@@ -64,8 +64,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::delete('deleteoi', 'OrderItemController@deleteOrderItem');
   Route::put('updateoi', 'OrderItemController@updateOrderItem');
 
-
-
 });
 
 

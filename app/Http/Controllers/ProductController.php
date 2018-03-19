@@ -10,8 +10,16 @@ class ProductController extends Controller
 {
   public function getProduct(Request $request, $name)
   {
-    $cat_id = Categories::where('category_name','=',$name)->first();
-    return Product::where('category_id','=',$cat_id)->get();
+    $cat_id = Categories::where('category_name','=',$name)->first()->id;
+    $products = Product::where('category_id','=',$cat_id)->get();
+
+    $res = array();
+
+    foreach ($products as $product) {
+      array_push($res, $product->productdetails);
+    }
+
+    return $products;
   }
 
 public function insertProduct(Request $request){
