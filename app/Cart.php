@@ -18,7 +18,14 @@ class Cart extends Model
       return $this->belongsTo('App\User','user_id');
     }
 
-    public function products(){
-      return $this->hasMany('App\Product','id');
+    public function product(){
+      return $this->hasOne('App\Product','id','product_id');
+    }
+    
+    public function scopeWhereArray($query, $array) {
+        foreach($array as $where) {
+            $query->where($where['field'], $where['operator'], $where['value']);
+        }
+        return $query;
     }
 }

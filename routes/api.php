@@ -48,6 +48,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::post('insertc', 'CartController@insertCart');
   Route::delete('deletec', 'CartController@deleteCart');
   Route::put('updatec', 'CartController@updateCart');
+  Route::delete('delete_item_cart/{id}', 'CartController@deleteItemFromCart');
 
 
   Route::post('inserto', 'OrderController@insertOrder');
