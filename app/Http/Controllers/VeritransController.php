@@ -6,17 +6,21 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
 use App\Veritrans\Veritrans;
+use App\User;
+use JWTAuth;
 
 class VeritransController extends Controller
 {
 
   public function __construct(){
     Veritrans::$serverKey = 'SB-Mid-server-rJbj1YxY9qZ1k7SjgDh39vHI';
-    Veritrans::$isProduction = false;
+    Veritrans::$isProduction = true;
   }
 
   public function vtweb()
   {
+      $user = JWTAuth::toUser();
+
       $vt = new Veritrans;
       $transaction_details = array(
           'order_id'          => uniqid(),
@@ -39,30 +43,30 @@ class VeritransController extends Controller
       ];
       // Populate customer's billing address
       $billing_address = array(
-          'first_name'        => "Andri",
-          'last_name'         => "Setiawan",
+          'first_name' => $user['name'],
+          'last_name' => "",
           'address'           => "Karet Belakang 15A, Setiabudi.",
           'city'                  => "Jakarta",
           'postal_code'   => "51161",
-          'phone'                 => "081322311801",
+          'phone'                 => $user['phone'],
           'country_code'  => 'IDN'
           );
       // Populate customer's shipping address
       $shipping_address = array(
-          'first_name'    => "John",
-          'last_name'     => "Watson",
+          'first_name'    => $user['name'],
+          'last_name'     => "",
           'address'       => "Bakerstreet 221B.",
           'city'              => "Jakarta",
           'postal_code' => "51162",
-          'phone'             => "081322311801",
+          'phone'             => $user['phone'],
           'country_code'=> 'IDN'
           );
       // Populate customer's Info
       $customer_details = array(
-          'first_name'            => "Andri",
-          'last_name'             => "Setiawan",
-          'email'                     => "andrisetiawan@asdasd.com",
-          'phone'                     => "081322311801",
+          'first_name'            => $user['name'],
+          'last_name'             => "",
+          'email'                     => $user['email'],
+          'phone'                     => $user['phone'],
           'billing_address' => $billing_address,
           'shipping_address'=> $shipping_address
           );
@@ -71,8 +75,24 @@ class VeritransController extends Controller
       $transaction_data = array(
           'payment_type'          => 'vtweb',
           'vtweb'                         => array(
-              //'enabled_payments'    => [],
-              'credit_card_3d_secure' => true
+              // 'enabled_payments'    => ["credit_card",
+              //                           "mandiri_clickpay",
+              //                           "cimb_clicks",
+              //                           "bca_klikbca",
+              //                           "bca_klikpay",
+              //                           "bri_epay",
+              //                           "telkomsel_cash",
+              //                           "echannel",
+              //                           "bbm_money",
+              //                           "xl_tunai",
+              //                           "indosat_dompetku",
+              //                           "mandiri_ecash",
+              //                           "permata_va",
+              //                           "bca_va",
+              //                           "other_va",
+              //                           "kioson",
+              //                           "Indomaret"],
+              //'credit_card_3d_secure' => true
           ),
           'transaction_details'=> $transaction_details,
           'item_details'           => $items,
