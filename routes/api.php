@@ -65,6 +65,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::delete('deleteoi', 'OrderItemController@deleteOrderItem');
   Route::put('updateoi', 'OrderItemController@updateOrderItem');
 
+  Route::get('veritrans_url', 'VeritransController@vtweb');
+  Route::post('vt_notif', 'VeritransController@notification');
+
 });
 
 
