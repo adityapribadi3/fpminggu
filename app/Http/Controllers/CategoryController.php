@@ -3,16 +3,38 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Category;
+use App\Categories;
 
 class CategoryController extends Controller
 {
   public function getCategory()
   {
-  return Category::all();
+    $categories = Categories::all();
+    $parent = Categories::all()->where('parent_category_id','==',NULL);
+    $arr=array();
+
+    foreach ($categories as $category)
+    {
+      if($category->parent_category_id != null)
+      {
+        array_push($arr,$category);
+      }
+    }
+
+    foreach($parent as $par){
+      foreach($arr as $ar){
+        if($ar->parent_category_id==$par->id){
+            $par['children']=$arr;
+        }
+      }
+    }
+
+    return $parent;
+
   }
 
-public function insertCategory(Request $request){
+public function insertCategory(Request $request)
+{
   try{
   $data = new Category();
 
