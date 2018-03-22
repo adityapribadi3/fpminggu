@@ -23,7 +23,6 @@ class CreateUsersTable extends Migration
             $table->string('phone')->unique();
             $table->string('password');
             $table->string('position')->nullable()->default('Customer');
-            $table->decimal('credit',11,3)->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

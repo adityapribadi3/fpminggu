@@ -19,7 +19,6 @@ public function insertUserAccount(Request $request){
  $data['name'] = $request->input('name');
  $data['phone'] = $request->input('phone');
  $data['position'] = $request->input('position');
- $data['credit'] = $request->input('credit');
  $res = $data->save();
 
  if($res==0){

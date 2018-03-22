@@ -19,7 +19,7 @@ class CreateProductsTable extends Migration
             $table->primary('id');
             $table->uuid('category_id')->unsigned();
             $table->string('product_name');
-            $table->decimal('product_price',11,3);
+            $table->decimal('product_price',11);
             $table->string('product_description');
             $table->integer('product_qty');
             $table->integer('product_sold')->default('0');
