@@ -25,7 +25,7 @@ class Order extends Model
 
     protected $fillable = [
         'id','user_id','order_status','order_date','total_price','payment_date','payment_amount',
-        'max_payment_date','payment_status','shipment_date','shipment_status','shipment_tracking_number'
+        'max_payment_date','payment_status','shipment_date','shipment_status','shipment_tracking_number','shipment_address'
     ];
 
 }

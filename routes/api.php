@@ -22,7 +22,6 @@ Route::post('register', 'AuthController@register');
 Route::group(['middleware' => ['jwt.auth']], function() {
   Route::get('logout', 'AuthController@logout');
   Route::get('me', 'AuthController@me');
-  Route::get('viewo', 'OrderController@getOrder');
 
   Route::get('viewua', 'UserController@getUserAccount');
   Route::post('insertua', 'UserController@insertUserAccount');
@@ -50,7 +49,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updatec', 'CartController@updateCart');
   Route::delete('delete_item_cart/{id}', 'CartController@deleteItemFromCart');
 
-
+  Route::get('view_request_order', 'OrderController@getReqOrder');
+  Route::get('view_order_details/{id}','OrderController@getOrderDetails');
+  Route::get('view_order', 'OrderController@getOrder');
   Route::post('inserto', 'OrderController@insertOrder');
   Route::delete('deleteo', 'OrderController@deleteOrder');
   Route::put('updateo', 'OrderController@updateOrder');
@@ -65,7 +66,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::delete('deleteoi', 'OrderItemController@deleteOrderItem');
   Route::put('updateoi', 'OrderItemController@updateOrderItem');
 
-  Route::get('veritrans_url', 'VeritransController@vtweb');
+  Route::get('veritrans_url/{order_id}', 'VeritransController@vtweb');
   Route::post('vt_notif', 'VeritransController@notification');
 
 });

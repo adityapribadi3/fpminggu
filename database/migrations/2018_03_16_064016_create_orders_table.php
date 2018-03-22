@@ -25,10 +25,12 @@ class CreateOrdersTable extends Migration
             $table->decimal('payment_amount')->nullable();
             $table->date('max_payment_date')->default(date('Y-m-d',strtotime('+1 day')));
             $table->string('payment_status')->nullable();
+            $table->uuid('shipment_address_id')->unsigned();
             $table->date('shipment_date')->nullable();
             $table->string('shipment_status')->nullable();
             $table->string('shipment_tracking_number')->nullable();
 
+            $table->foreign('shipment_address_id')->references('id')->on('user_addresses');
             $table->foreign('user_id')->references('id')->on('users');
         });
         DB::statement('ALTER TABLE orders ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

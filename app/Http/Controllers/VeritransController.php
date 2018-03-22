@@ -20,13 +20,13 @@ class VeritransController extends Controller
     Veritrans::$isProduction = false;
   }
 
-  public function vtweb()
+  public function vtweb(Request $request,$order_id)
   {
       $user = JWTAuth::toUser();
 
       $vt = new Veritrans;
       $transaction_details = array(
-          'order_id'          => uniqid(),
+          'order_id'          => $order_id,
           'gross_amount'  => 200000
       );
       // Populate items

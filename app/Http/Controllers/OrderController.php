@@ -10,10 +10,30 @@ use JWTAuth;
 
 class OrderController extends Controller
 {
+  public function getReqOrder()
+  {
+    $user = JWTAuth::toUser();
+    return $user->orders->where('order_status','Menunggu Pembayaran');
+  }
+
   public function getOrder()
   {
     $user = JWTAuth::toUser();
-    return $user->orders;
+    return $user->orders->where('order_status','On Process');
+  }
+
+  public function getOrderDetails(Request $request,$id)
+  {
+    $user = JWTAuth::toUser();
+    $orders = $user->orders->where('id',$id);
+
+    $order_items = array($orders);
+
+    foreach($orders as $order){
+      array_push($order_items, $order->orderitems);
+    }
+
+    return $orders;
   }
 
 public function insertOrder(Request $request){
