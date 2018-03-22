@@ -19,13 +19,14 @@ class CreateOrdersTable extends Migration
             $table->primary('id');
             $table->uuid('user_id')->unsigned();
             $table->string('order_status');
-            $table->date('order_date');
+            $table->date('order_date')->default(date('Y-m-d'));
             $table->decimal('total_price');
             $table->date('payment_date')->nullable();
             $table->decimal('payment_amount')->nullable();
-            $table->date('max_payment_date');
+            $table->date('max_payment_date')->default(date('Y-m-d',strtotime('+1 day')));
             $table->string('payment_status')->nullable();
             $table->date('shipment_date')->nullable();
+            $table->string('shipment_status')->nullable();
             $table->string('shipment_tracking_number')->nullable();
 
             $table->foreign('user_id')->references('id')->on('users');

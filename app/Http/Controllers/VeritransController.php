@@ -8,13 +8,16 @@ use App\Http\Controllers\Controller;
 use App\Veritrans\Veritrans;
 use App\User;
 use JWTAuth;
+use App\Order;
+use App\OrderItem;
+use App\Product;
 
 class VeritransController extends Controller
 {
 
   public function __construct(){
     Veritrans::$serverKey = 'SB-Mid-server-rJbj1YxY9qZ1k7SjgDh39vHI';
-    Veritrans::$isProduction = true;
+    Veritrans::$isProduction = false;
   }
 
   public function vtweb()
@@ -75,24 +78,7 @@ class VeritransController extends Controller
       $transaction_data = array(
           'payment_type'          => 'vtweb',
           'vtweb'                         => array(
-              // 'enabled_payments'    => ["credit_card",
-              //                           "mandiri_clickpay",
-              //                           "cimb_clicks",
-              //                           "bca_klikbca",
-              //                           "bca_klikpay",
-              //                           "bri_epay",
-              //                           "telkomsel_cash",
-              //                           "echannel",
-              //                           "bbm_money",
-              //                           "xl_tunai",
-              //                           "indosat_dompetku",
-              //                           "mandiri_ecash",
-              //                           "permata_va",
-              //                           "bca_va",
-              //                           "other_va",
-              //                           "kioson",
-              //                           "Indomaret"],
-              //'credit_card_3d_secure' => true
+              'credit_card_3d_secure' => true
           ),
           'transaction_details'=> $transaction_details,
           'item_details'           => $items,

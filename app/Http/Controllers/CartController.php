@@ -54,7 +54,7 @@ public function insertCart(Request $request){
 public function deleteCart(Request $request){
   try{
     $user = JWTAuth::toUser();
-    $task = Cart::where('user_id','=',$id)->delete();
+    $task = Cart::where('user_id','=',$user['id'])->delete();
 
     if($task==0){
       return response([
