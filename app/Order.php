@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     public $incrementing = false;
+    public $timestamps = false;
     protected $table = 'orders';
 
     protected $casts = [
@@ -19,7 +20,12 @@ class Order extends Model
     }
 
     public function orderitems(){
-      return $this->hasMany('App\OrderItem');
+      return $this->hasMany('App\OrderItem','order_id');
     }
+
+    protected $fillable = [
+        'id','user_id','order_status','order_date','total_price','payment_date','payment_amount',
+        'max_payment_date','payment_status','shipment_date','shipment_status','shipment_tracking_number'
+    ];
 
 }

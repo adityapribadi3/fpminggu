@@ -20,7 +20,7 @@ class CreateOrdersTable extends Migration
             $table->uuid('user_id')->unsigned();
             $table->string('order_status');
             $table->date('order_date')->default(date('Y-m-d'));
-            $table->decimal('total_price');
+            $table->decimal('total_price',11,0);
             $table->date('payment_date')->nullable();
             $table->decimal('payment_amount')->nullable();
             $table->date('max_payment_date')->default(date('Y-m-d',strtotime('+1 day')));

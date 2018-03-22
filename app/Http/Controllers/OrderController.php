@@ -19,24 +19,25 @@ class OrderController extends Controller
 public function insertOrder(Request $request){
   try{
     $user = JWTAuth::toUser();
-    $cart = Cart::where()->get();
-    $data = new Order();
-    $data['user_id'] = $user['id'];
-    $data['order_status'] = $request->input('order_status');
-    $data['order_date'] = $request->input('order_date');
-    $data['payment_date'] = $request->input('payment_date');
-    $data['payment_amount'] = $request->input('payment_amount');
-    $data['max_payment_date'] = $request->input('max_payment_date');
-    $data['payment_status'] = $request->input('payment_status');
-    $data['shipment_date'] = $request->input('shipment_date');
-    $data['shipment_tracking_number'] = $request->input('shipment_tracking_number');
-    $res = $data->save();
+    // $data = new Order();
+    // $data['user_id'] = $user['id'];
+    // $data['order_status'] = $request->input('order_status');
+    // $data['total_price'] = $request->input('total_price');
+    // $data['payment_status'] = $request->input('payment_status');
+    //  = $data->save();
 
-    $cart = Cart::where('user_id', $user['id'])->get();
+    $id = Order::insertGetId([
+      'user_id' => $user['id'],
+      'order_status' => $request->input('order_status'),
+      'total_price' => $request->input('total_price'),
+      'payment_status' => $request->input('payment_status')
+    ]);
+
+    $cart = $user->cart;
 
     foreach($cart as $it){
       OrderItem::create([
-        'order_id' => $data->id,
+        'order_id' => $id,
         'product_id' => $it['product_id'],
         'qty' => $it['qty'],
         'price' => $it['price'],
@@ -44,7 +45,7 @@ public function insertOrder(Request $request){
       ]);
     }
 
-  if($res==0){
+  if(!$id){
     return response([
       'msg'=>'fail'
     ],400);
@@ -64,7 +65,7 @@ public function insertOrder(Request $request){
  public function deleteOrder(Request $request){
  try{
   $user = JWTAuth::toUser();
-  $task =  Order::where('id','=',$user->['id'])->delete();
+  $task =  Order::where('id','=',$user['id'])->delete();
 
    if($task==0){
      return response([
@@ -85,8 +86,7 @@ public function insertOrder(Request $request){
  public function updateOrder(Request $request){
  try{
    $user = JWTAuth::toUser();
-   $task =  Order::where('id','=',$user['id'])
-           ->update([
+   $task =  Order::where('id','=',$user['id'])->update([
 
            'user_id' => $user['id'],
            'order_status' => $request->input('order_status'),
@@ -96,10 +96,9 @@ public function insertOrder(Request $request){
            'payment_amount' => $request->input('payment_amount'),
            'max_payment_date' => $request->input('max_payment_date'),
            'payment_status' => $request->input('payment_status'),
-           'shipment_date' = $request->input('shipment_date'),
-           'shipment_tracking_number' = $request->input('shipment_tracking_number')
-
-                   ]);
+           'shipment_date' => $request->input('shipment_date'),
+           'shipment_tracking_number' => $request->input('shipment_tracking_number')
+         ]);
 
 
 

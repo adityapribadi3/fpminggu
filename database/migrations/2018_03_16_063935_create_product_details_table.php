@@ -20,7 +20,6 @@ class CreateProductDetailsTable extends Migration
             $table->uuid('product_id')->unsigned();
             $table->string('key');
             $table->string('value');
-            $table->timestamps();
             $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE product_details ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

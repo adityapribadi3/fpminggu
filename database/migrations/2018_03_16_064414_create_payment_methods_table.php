@@ -19,7 +19,6 @@ class CreatePaymentMethodsTable extends Migration
             $table->primary('id');
             $table->uuid('payment_id')->unsigned();
             $table->uuid('user_id')->unsigned();
-            $table->timestamps();
             $table->foreign('payment_id')->references('id')->on('user_payment_methods')->onDelete('cascade');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });

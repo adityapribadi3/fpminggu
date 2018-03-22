@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class UserAddress extends Model
 {
     public $incrementing = false;
+    public $timestamps = false;
     protected $table = 'user_addresses';
 
     protected $casts = [
@@ -17,4 +18,8 @@ class UserAddress extends Model
     public function useraddress(){
       return $this->belongsTo('App\User','user_id');
     }
+
+    protected $fillable = [
+        'id','user_id','name','phone','address'
+    ];
 }

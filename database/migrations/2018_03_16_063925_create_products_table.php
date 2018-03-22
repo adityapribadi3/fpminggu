@@ -19,12 +19,11 @@ class CreateProductsTable extends Migration
             $table->primary('id');
             $table->uuid('category_id')->unsigned();
             $table->string('product_name');
-            $table->decimal('product_price',11);
+            $table->decimal('product_price',11,0);
             $table->string('product_description');
             $table->integer('product_qty');
             $table->integer('product_sold')->default('0');
             $table->text('product_img');
-            $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE products ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

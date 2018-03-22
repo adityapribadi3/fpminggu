@@ -22,7 +22,6 @@ class CreateUserAddressesTable extends Migration
             $table->string('name');
             $table->string('phone');
             $table->string('address');
-            $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
         DB::statement('ALTER TABLE user_addresses ALTER COLUMN id SET DEFAULT uuid_generate_v4();');

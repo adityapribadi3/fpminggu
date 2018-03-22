@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class ProductDetail extends Model
 {
     public $incrementing = false;
+    public $timestamps = false;
     protected $table = 'product_details';
 
     protected $casts = [

@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class OrderItem extends Model
 {
     public $incrementing = false;
-    protected $table = 'orderitems';
+    public $timestamps = false;
+    protected $table = 'order_items';
 
     protected $casts = [
         'id' => 'string'
@@ -15,10 +16,14 @@ class OrderItem extends Model
     protected $primaryKey = "id";
 
     public function orderitems(){
-      return $this->belongsTo('App\Order','order_id');
+      return $this->belongsTo('App\Order','id');
     }
 
-    public function orderitems(){
+    public function products(){
       return $this->belongsTo('App\Product','product_id');
     }
+
+    protected $fillable = [
+        'id','order_id','product_id','price','qty','additional_information'
+    ];
 }

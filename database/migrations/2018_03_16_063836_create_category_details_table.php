@@ -19,7 +19,6 @@ class CreateCategoryDetailsTable extends Migration
             $table->primary('id');
             $table->uuid('category_id')->unsigned();
             $table->string('key');
-            $table->timestamps();
             $table->foreign('category_id')->references('id')->on('categories');
         });
         DB::statement('ALTER TABLE category_details ALTER COLUMN id SET DEFAULT uuid_generate_v4();');
