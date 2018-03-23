@@ -20,7 +20,13 @@ class CartController extends Controller
       array_push($cart_items, $cart->product);
     }
 
-    return $carts;
+    if(count($carts)==0){
+      return response([
+        'msg' => 'Cart is empty'
+      ],400);
+    } else {
+      return response($carts,200);
+    }
 
   }
 

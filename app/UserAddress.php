@@ -19,6 +19,10 @@ class UserAddress extends Model
       return $this->belongsTo('App\User','user_id');
     }
 
+    public function order(){
+      return $this->belongsTo('App\Order','shipment_address_id');
+    }
+
     protected $fillable = [
         'id','user_id','name','phone','address'
     ];
