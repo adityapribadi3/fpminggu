@@ -4,12 +4,30 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\User;
+use JWTAuth;
 
 class UserController extends Controller
 {
- public function getUserAccount(){
- return User::all();
-}
+   public function getUserAccount(){
+     return User::all();
+   }
+
+   public function checkAddress()
+   {
+     $user = JWTAuth::toUser();
+     $addresses = $user->useraddress;
+
+     if(count($addresses)==0)
+     {
+       return response([
+         'msg' => 'Address is empty, please go to Dashboard and add an address!'
+       ],400);
+     } else {
+       return response([
+         'msg' => true
+       ],200);
+     }
+   }
 
 public function insertUserAccount(Request $request){
  try{

@@ -24,7 +24,7 @@ class Order extends Model
     }
 
     public function useraddress(){
-      reutn $this->hasMany('App\UserAddress','id');
+      return $this->hasMany('App\UserAddress','id');
     }
 
     protected $fillable = [

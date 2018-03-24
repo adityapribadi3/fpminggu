@@ -50,7 +50,8 @@ public function insertOrder(Request $request){
       'user_id' => $user['id'],
       'order_status' => $request->input('order_status'),
       'total_price' => $request->input('total_price'),
-      'payment_status' => $request->input('payment_status')
+      'payment_status' => $request->input('payment_status'),
+      'shipment_address_id' => $request->input('shipment_address_id')
     ]);
 
     $cart = $user->cart;
@@ -71,7 +72,7 @@ public function insertOrder(Request $request){
     ],400);
   }else{
     return response([
-      'msg'=>'success',
+      'msg'=>'Order has been placed, please check your dashboard.',
 
     ],200);
   }

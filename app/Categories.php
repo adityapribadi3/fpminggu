@@ -18,12 +18,12 @@ class Categories extends Model
         'id','category_name','parent_category_id'
     ];
 
-    public function categories1(){
-      return $this->belongsTo('App\Categories','parent_category_id');
+    public function categorieschild(){
+      return $this->belongsTo('App\Categories','parent_category_id','id');
     }
 
-    public function categories(){
-      return $this->hasMany('App\Categories');
+    public function allcategories(){
+      return $this->categorieschild()->with('allcategories');
     }
 
     public function categorydetails(){

@@ -20,41 +20,50 @@ class CartController extends Controller
       array_push($cart_items, $cart->product);
     }
 
-    if(count($carts)==0){
-      return response([
-        'msg' => 'Cart is empty'
+    return response($carts,200);
+  }
+
+  public function checkCart(){
+    $user = JWTAuth::toUser();
+
+    $carts = $user->cart;
+    if(count($carts) == 0){
+      return response ([
+        'msg' => 'Cart is Empty!'
       ],400);
     } else {
-      return response($carts,200);
+      return response([
+        'msg' => true
+      ],200);
     }
-
   }
 
 public function insertCart(Request $request){
-  try{
-  $user = JWTAuth::toUser();
-  $data = new Cart();
-  $data['user_id'] = $user['id'];
-  $data['product_id'] = $request->input('product_id');
-  $data['qty'] = $request->input('qty');
-  $data['price'] = $request->input('price');
-  $res = $data->save();
+    try{
+      $res=null;
+      $user = JWTAuth::toUser();
 
-  if($res==0){
-    return response([
-      'msg'=>'fail'
-    ],400);
-  }else{
-    return response([
-      'msg'=>'success',
+      $exist = Cart::where('user_id',$user['id'])->where('product_id',$request->input('product_id'))->first();
+      if($exist){
+        Cart::where('user_id',$user['id'])->where('product_id',$request->input('product_id'))->increment('qty');
+      } else {
+        $data = new Cart();
+        $data['user_id'] = $user['id'];
+        $data['product_id'] = $request->input('product_id');
+        $data['qty'] = $request->input('qty');
+        $data['price'] = $request->input('price');
+        $res = $data->save();
+      }
 
-    ],200);
+        return response([
+          'msg'=>'success',
+        ],200);
+
+    }catch(Exception $error){
+      return response([
+        'msg'=>'fail'
+      ],400);
   }
-}catch(Exception $error){
-  return response([
-    'msg'=>'fail'
-  ],400);
-}
 }
 
 public function deleteCart(Request $request){
@@ -112,30 +121,29 @@ public function deleteItemFromCart(Request $request,$id){
   }
 }
 
-public function updateCart(Request $request){
-try{
-  $user = JWTAuth::toUser();
-  $task = Cart::where('id','=',$user['id'])
-          ->update([
-          'user_id' => $user['id'],
-          'product_id' => $request->input('product_id'),
-          'qty' => $request->input('qty'),
-          'price' => $request->input('price')
-                  ]);
+public function updateCartQty(Request $request){
+  try{
+    $user = JWTAuth::toUser();
 
-          if($task==0){
+    $carts = $user->cart;
+
+    $task = $carts->where('product_id','=',$request->input('product_id'))->first()->update([
+      'qty' => $request->input('qty')
+    ]);
+
+            if($task==0){
+              return response([
+                'msg'=>'Fail to update qty'
+              ],400);
+            }else{
+              return response([
+                'msg'=>'Qty updated'
+              ],200);
+            }
+          }catch(Exception $error){
             return response([
               'msg'=>'fail'
             ],400);
-          }else{
-            return response([
-              'msg'=>'success'
-            ],200);
           }
-        }catch(Exception $error){
-          return response([
-            'msg'=>'fail'
-          ],400);
-        }
-}
+  }
 }

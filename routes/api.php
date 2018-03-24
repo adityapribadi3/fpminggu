@@ -27,6 +27,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::post('insertua', 'UserController@insertUserAccount');
   Route::delete('deleteua', 'UserController@deleteUserAccount');
   Route::put('updateua', 'UserController@updateUserAccount');
+  Route::get('validateAddress','UserController@checkAddress');
 
   Route::get('viewupm', 'UserPaymentMethodController@getUserPaymentMethod');
   Route::post('insertupm', 'UserPaymentMethodController@insertUserPaymentMethod');
@@ -44,9 +45,10 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updateuadd', 'UserAddressController@updateUserAddress');
 
   Route::get('viewc', 'CartController@getCart');
+  Route::get('validateCart','CartController@checkCart');
   Route::post('insertc', 'CartController@insertCart');
   Route::delete('deletec', 'CartController@deleteCart');
-  Route::put('updatec', 'CartController@updateCart');
+  Route::put('update_cart_qty', 'CartController@updateCartQty');
   Route::delete('delete_item_cart/{id}', 'CartController@deleteItemFromCart');
 
   Route::get('view_request_order', 'OrderController@getReqOrder');
@@ -83,7 +85,7 @@ Route::post('insertpd', 'ProductDetailController@insertProductDetail');
 Route::delete('deletepd', 'ProductDetailController@deleteProductDetail');
 Route::put('updatepd', 'ProductDetailController@updateProductDetail');
 
-Route::get('viewcat', 'CategoryController@getCategory');
+Route::get('viewcat', 'CategoryController@ancestors');
 Route::post('insertcat', 'CategoryController@insertCategory');
 Route::delete('deletecat', 'CategoryController@deleteCategory');
 Route::put('updatecat', 'CategoryController@updateCategory');

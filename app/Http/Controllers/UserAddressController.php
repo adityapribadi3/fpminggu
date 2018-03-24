@@ -10,9 +10,9 @@ class UserAddressController extends Controller
 {
   public function getUserAddress()
   {
-  $user = JWTAuth::toUser();
-  return $user->useraddress;
-}
+    $user = JWTAuth::toUser();
+    return $user->useraddress;
+  }
 
 public function insertUserAddress(Request $request){
   try{
