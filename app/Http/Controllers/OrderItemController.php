@@ -4,12 +4,27 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\OrderItem;
+use App\Order;
+use JWTAuth;
 
 class OrderItemController extends Controller
 {
-  public function getOrderItem()
+  public function getOrderItem(Request $request,$id)
   {
-  return OrderItem::all();
+    $order = Order::where('id',$id)->first();
+    $order_items = $order->orderitems;
+
+    foreach($order_items as $item){
+      $product = $item->products;
+    }
+
+    if($order){
+      return response($order,200);
+    } else {
+      return response([
+        'msg' => 'Server Error'
+      ],400);
+    }
   }
 
 public function insertOrderItem(Request $request){

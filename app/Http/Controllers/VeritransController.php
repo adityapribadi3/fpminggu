@@ -24,33 +24,38 @@ class VeritransController extends Controller
   {
       $user = JWTAuth::toUser();
 
+      $order = Order::where('id',$order_id)->first();
+      $address_id = $order->shipment_address_id;
+      $address = $user->useraddress->where('id',$address_id)->first();
+      $order_items = $order->orderitems;
+
+      foreach($order_items as $item){
+        $product = $item->products;
+      }
+
+      $price = (int)$order->total_price;
       $vt = new Veritrans;
       $transaction_details = array(
-          'order_id'          => $order_id,
-          'gross_amount'  => 200000
+          'order_id' => $order_id,
+          'gross_amount'  => 300000
       );
       // Populate items
-      $items = [
-          array(
-              'id' => 'item1',
-              'price' => 100000,
-              'quantity'  => 1,
-              'name'          => 'Adidas f50'
-          ),
-          array(
-              'id'                => 'item2',
-              'price'         => 50000,
-              'quantity'  => 2,
-              'name'          => 'Nike N90'
-          )
-      ];
+      $items = [];
+
+      foreach($order_items as $item){
+            $temp = array(
+              'product_id' => $item->product_id,
+              'price' => $item->price,
+              'quantity' => $item->qty,
+              'name' => 'test'
+            );
+            array_push($items,$temp);
+      }
       // Populate customer's billing address
       $billing_address = array(
           'first_name' => $user['name'],
           'last_name' => "",
-          'address'           => "Karet Belakang 15A, Setiabudi.",
-          'city'                  => "Jakarta",
-          'postal_code'   => "51161",
+          'address'           => $address->address,
           'phone'                 => $user['phone'],
           'country_code'  => 'IDN'
           );
@@ -58,10 +63,8 @@ class VeritransController extends Controller
       $shipping_address = array(
           'first_name'    => $user['name'],
           'last_name'     => "",
-          'address'       => "Bakerstreet 221B.",
-          'city'              => "Jakarta",
-          'postal_code' => "51162",
-          'phone'             => $user['phone'],
+          'address'       => $address->address,
+          'phone'             => $address->phone,
           'country_code'=> 'IDN'
           );
       // Populate customer's Info
