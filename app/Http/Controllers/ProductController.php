@@ -22,6 +22,13 @@ class ProductController extends Controller
     return $products;
   }
 
+  public function getProductById(Request $request,$id)
+  {
+    $product = Product::where('id',$id)->first();
+
+    return $product;
+  }
+
 public function insertProduct(Request $request){
   try{
   $data = new Product();
