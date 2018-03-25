@@ -37,19 +37,22 @@ class VeritransController extends Controller
       $vt = new Veritrans;
       $transaction_details = array(
           'order_id' => $order_id,
-          'gross_amount'  => 300000
+          'gross_amount'  => $price
       );
       // Populate items
       $items = [];
 
       foreach($order_items as $item){
-            $temp = array(
-              'product_id' => $item->product_id,
-              'price' => $item->price,
-              'quantity' => $item->qty,
-              'name' => 'test'
-            );
-            array_push($items,$temp);
+        $product_details = $item->products;
+
+        $temp = array(
+          'product_id' => $product_details->product_id,
+          'price' => $item->price,
+          'quantity' => $item->qty,
+          'name' => $product_details->product_name
+        );
+        array_push($items,$temp);
+
       }
       // Populate customer's billing address
       $billing_address = array(
@@ -109,7 +112,7 @@ class VeritransController extends Controller
         $notif = $vt->status($result->order_id);
         }
         error_log(print_r($result,TRUE));
-        /*
+
         $transaction = $notif->transaction_status;
         $type = $notif->payment_type;
         $order_id = $notif->order_id;
@@ -139,7 +142,14 @@ class VeritransController extends Controller
           else if ($transaction == 'deny') {
           // TODO set payment status in merchant's database to 'Denied'
           echo "Payment using " . $type . " for transaction order_id: " . $order_id . " is denied.";
-        }*/
+        }
+        $totalprice = Order::find($order_id)->value('total_price');
 
+        Order::find($order_id)->update([
+          'order_status' => $transaction,
+          'payment_date' => date('Y-m-d'),
+          'payment_amount' => $totalprice,
+          'shipment_status' => 'On Process'
+        ]);
     }
 }

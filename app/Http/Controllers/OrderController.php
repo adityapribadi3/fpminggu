@@ -53,6 +53,7 @@ class OrderController extends Controller
   public function insertOrder(Request $request){
     try{
       $user = JWTAuth::toUser();
+      $totalprice = 0;
       // $data = new Order();
       // $data['user_id'] = $user['id'];
       // $data['order_status'] = $request->input('order_status');
@@ -63,7 +64,7 @@ class OrderController extends Controller
       $id = Order::insertGetId([
         'user_id' => $user['id'],
         'order_status' => $request->input('order_status'),
-        'total_price' => $request->input('total_price'),
+        'total_price' => 0,
         'payment_status' => $request->input('payment_status'),
         'shipment_address_id' => $request->input('shipment_address_id')
       ]);
@@ -78,7 +79,12 @@ class OrderController extends Controller
           'price' => $it['price'],
           'additional_information' => $it['additional_information']
         ]);
+        $totalprice += $it['qty']*$it['price'];
       }
+
+      Order::find($id)->update([
+        'total_price' => $totalprice
+      ]);
 
     if(!$id){
       return response([
