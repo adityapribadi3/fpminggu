@@ -87,6 +87,7 @@ Route::get('viewpd', 'ProductDetailController@getProductDetail');
 Route::post('insertpd', 'ProductDetailController@insertProductDetail');
 Route::delete('deletepd', 'ProductDetailController@deleteProductDetail');
 Route::put('updatepd', 'ProductDetailController@updateProductDetail');
+Route::get('validateProductQty/{id}/{qty}','ProductController@validateQty');
 
 Route::get('viewcat', 'CategoryController@getCategory');
 Route::post('insertcat', 'CategoryController@insertCategory');

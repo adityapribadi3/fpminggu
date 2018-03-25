@@ -7,6 +7,7 @@ use App\Order;
 use App\OrderItem;
 use App\Cart;
 use JWTAuth;
+use Validator;
 
 class OrderController extends Controller
 {
@@ -52,6 +53,14 @@ class OrderController extends Controller
 
   public function insertOrder(Request $request){
     try{
+      $validator = Validator::make($request->all(), [
+          'shipment_address_id' => 'required|string'
+      ]);
+
+      if ($validator->fails()) {
+          return response(['msg'=>'Please choose an address!'],401);
+      }
+
       $user = JWTAuth::toUser();
       $totalprice = 0;
       // $data = new Order();

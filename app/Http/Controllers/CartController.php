@@ -27,11 +27,25 @@ class CartController extends Controller
     $user = JWTAuth::toUser();
 
     $carts = $user->cart;
+
+    $response_array = array();
+    foreach($carts as $cart){
+      $product_id = $cart->product_id;
+      $stock = Product::find($product_id)->value('product_qty');
+      $name = Product::find($product_id)->value('product_name');
+      if($cart->qty>$stock){
+        array_push($response_array,'Our stock for'.$name.' is not enough');
+      }
+    }
     if(count($carts) == 0){
       return response ([
         'msg' => 'Cart is Empty!'
       ],400);
-    } else {
+    }
+    if(count($response_array)!=0){
+      return response($response_array,400);
+    }
+    else {
       return response([
         'msg' => true
       ],200);

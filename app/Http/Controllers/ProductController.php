@@ -11,7 +11,7 @@ class ProductController extends Controller
   public function getProduct(Request $request, $name)
   {
     $cat_id = Categories::where('category_name','=',$name)->first()->id;
-    $products = Product::where('category_id','=',$cat_id)->get();
+    $products = Product::where('category_id','=',$cat_id)->paginate(12);
 
     $res = array();
 
@@ -20,6 +20,19 @@ class ProductController extends Controller
     }
 
     return $products;
+  }
+
+  public function validateQty(Request $request, $id, $qty){
+    $stock = Product::find($id)->value('product_qty');
+    $productname = Product::find($id)->value('product_name');
+    $integer_qty = (int)$qty;
+
+    if($stock>=$integer_qty){
+      return response(['msg'=>'enough'],200);
+    } else {
+      return response(['msg'=>'Our stock for '.$productname.' is not enough'],400);
+    }
+
   }
 
   public function getProductById(Request $request,$id)

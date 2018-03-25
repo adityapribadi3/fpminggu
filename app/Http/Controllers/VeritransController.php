@@ -145,6 +145,14 @@ class VeritransController extends Controller
         }
         $totalprice = Order::find($order_id)->value('total_price');
 
+        $order_items = OrderItem::where('order_id',$order_id)->get();
+
+        foreach($order_items as $item){
+          Product::find($item->product_id)->update([
+            'qty'
+          ])
+        }
+
         Order::find($order_id)->update([
           'order_status' => $transaction,
           'payment_date' => date('Y-m-d'),
