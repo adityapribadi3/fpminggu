@@ -158,7 +158,8 @@ class VeritransController extends Controller
           'order_status' => $transaction,
           'payment_date' => date('Y-m-d'),
           'payment_amount' => $totalprice,
-          'shipment_status' => 'On Process'
+          'shipment_status' => 'On Process',
+          'payment_status' => 'Verified'
         ]);
     }
 }

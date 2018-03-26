@@ -34,7 +34,7 @@ class CartController extends Controller
       $stock = Product::find($product_id)->value('product_qty');
       $name = Product::find($product_id)->value('product_name');
       if($cart->qty>$stock){
-        array_push($response_array,'Our stock for'.$name.' is not enough');
+        array_push($response_array,'Our stock for '.$name.' is not enough');
       }
     }
     if(count($carts) == 0){
@@ -56,7 +56,7 @@ public function insertCart(Request $request){
     try{
       $res=null;
       $user = JWTAuth::toUser();
-      $product = Product::find($request->input('product_id'));
+      $product = Product::where('id',$request->input('product_id'))->first();
 
       $exist = Cart::where('user_id',$user['id'])->where('product_id',$request->input('product_id'))->first();
       if($exist){
