@@ -161,5 +161,7 @@ class VeritransController extends Controller
           'shipment_status' => 'On Process',
           'payment_status' => 'Verified'
         ]);
+
+        return response(['msg'=>'success'],200);
     }
 }
