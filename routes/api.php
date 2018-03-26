@@ -29,7 +29,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updateua', 'UserController@updateUserAccount');
   Route::get('validateAddress','UserController@checkAddress');
 
-  Route::get('product/{id}','ProductController@getProductById');
+
 
   Route::get('viewupm', 'UserPaymentMethodController@getUserPaymentMethod');
   Route::post('insertupm', 'UserPaymentMethodController@insertUserPaymentMethod');
@@ -61,11 +61,6 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updateo', 'OrderController@updateOrder');
   Route::get('shipment_address/{id}', 'OrderController@getOrderShipmentAddress');
 
-  Route::get('views', 'ShipmentController@getShipment');
-  Route::post('inserts', 'ShipmentController@insertShipment');
-  Route::delete('deletes', 'ShipmentController@deleteShipment');
-  Route::put('updates', 'ShipmentController@updateShipment');
-
   Route::get('view_order_items/{id}', 'OrderItemController@getOrderItem');
   Route::post('insertoi', 'OrderItemController@insertOrderItem');
   Route::delete('deleteoi', 'OrderItemController@deleteOrderItem');
@@ -75,7 +70,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::post('vt_notif', 'VeritransController@notification');
 
 });
-
+Route::get('product/{id}','ProductController@getProductById');
 
 Route::get('viewp/{name}', 'ProductController@getProduct');
 Route::post('insertp', 'ProductController@insertProduct');

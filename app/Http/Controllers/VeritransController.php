@@ -150,7 +150,7 @@ class VeritransController extends Controller
         foreach($order_items as $item){
           Product::find($item->product_id)->update([
             'qty'
-          ])
+          ]);
         }
 
         Order::find($order_id)->update([
