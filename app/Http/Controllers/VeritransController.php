@@ -148,9 +148,10 @@ class VeritransController extends Controller
         $order_items = OrderItem::where('order_id',$order_id)->get();
 
         foreach($order_items as $item){
-          Product::find($item->product_id)->update([
-            'qty'
-          ]);
+          $mod = Product::find($item->product_id);
+          $mod->product_qty -= $item->qty;
+          $mod->product_sold += $item->qty;
+          $mod->save();
         }
 
         Order::find($order_id)->update([

@@ -78,7 +78,8 @@ try{
 
 public function updateUserAccount(Request $request){
 try{
- $task = User::where('id','=',$request->input('id'))
+  $user = JWTAuth::toUser();
+ $task = User::where('id','=',$user['id'])
          ->update([
 
          'email' => $request->input('email'),

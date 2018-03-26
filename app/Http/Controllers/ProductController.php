@@ -38,8 +38,9 @@ class ProductController extends Controller
   public function getProductById(Request $request,$id)
   {
     $product = Product::where('id',$id)->first();
-
-    return $product;
+    $product_details = $product->productdetails;
+    $arr=$product;
+    return $arr;
   }
 
 public function insertProduct(Request $request){
