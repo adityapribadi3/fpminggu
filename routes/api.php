@@ -29,7 +29,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updateua', 'UserController@updateUserAccount');
   Route::get('validateAddress','UserController@checkAddress');
 
-
+  Route::get('get_complete_order','OrderController@getCompleteOrder')
 
   Route::get('viewupm', 'UserPaymentMethodController@getUserPaymentMethod');
   Route::post('insertupm', 'UserPaymentMethodController@insertUserPaymentMethod');

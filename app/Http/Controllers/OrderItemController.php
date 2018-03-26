@@ -11,7 +11,7 @@ class OrderItemController extends Controller
 {
   public function getOrderItem(Request $request,$id)
   {
-    $order = Order::where('id',$id)->first();
+    $order = Order::find($id);
     $order_items = $order->orderitems;
 
     foreach($order_items as $item){
