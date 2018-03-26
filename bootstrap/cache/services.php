@@ -45,12 +45,11 @@
     8 => 'Illuminate\\Session\\SessionServiceProvider',
     9 => 'Illuminate\\View\\ViewServiceProvider',
     10 => 'Fideloper\\Proxy\\TrustedProxyServiceProvider',
-    11 => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
-    12 => 'Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider',
-    13 => 'App\\Providers\\AppServiceProvider',
-    14 => 'App\\Providers\\AuthServiceProvider',
-    15 => 'App\\Providers\\EventServiceProvider',
-    16 => 'App\\Providers\\RouteServiceProvider',
+    11 => 'Tymon\\JWTAuth\\Providers\\JWTAuthServiceProvider',
+    12 => 'App\\Providers\\AppServiceProvider',
+    13 => 'App\\Providers\\AuthServiceProvider',
+    14 => 'App\\Providers\\EventServiceProvider',
+    15 => 'App\\Providers\\RouteServiceProvider',
   ),
   'deferred' => 
   array (
@@ -152,6 +151,7 @@
     'validator' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'validation.presence' => 'Illuminate\\Validation\\ValidationServiceProvider',
     'command.tinker' => 'Laravel\\Tinker\\TinkerServiceProvider',
+    'NunoMaduro\\Collision\\Contracts\\Provider' => 'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider',
   ),
   'when' => 
   array (
@@ -192,6 +192,9 @@
     array (
     ),
     'Laravel\\Tinker\\TinkerServiceProvider' => 
+    array (
+    ),
+    'NunoMaduro\\Collision\\Adapters\\Laravel\\CollisionServiceProvider' => 
     array (
     ),
   ),
