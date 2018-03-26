@@ -56,7 +56,7 @@ public function insertCart(Request $request){
     try{
       $res=null;
       $user = JWTAuth::toUser();
-      $price = Product::find($request->input('product_id'))->value('product_price');
+      $product = Product::find($request->input('product_id'));
 
       $exist = Cart::where('user_id',$user['id'])->where('product_id',$request->input('product_id'))->first();
       if($exist){
@@ -66,7 +66,7 @@ public function insertCart(Request $request){
         $data['user_id'] = $user['id'];
         $data['product_id'] = $request->input('product_id');
         $data['qty'] = $request->input('qty');
-        $data['price'] = $price;
+        $data['price'] = $product->product_price;
         $res = $data->save();
       }
 
