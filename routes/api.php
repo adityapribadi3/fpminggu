@@ -67,10 +67,9 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::put('updateoi', 'OrderItemController@updateOrderItem');
 
   Route::get('veritrans_url/{order_id}', 'VeritransController@vtweb');
-  Route::post('vt_notif','VeritransController@notification');
-
 });
 Route::get('product/{id}','ProductController@getProductById');
+Route::post('vt_notif','VeritransController@notification');
 
 
 Route::get('viewp/{name}', 'ProductController@getProduct');

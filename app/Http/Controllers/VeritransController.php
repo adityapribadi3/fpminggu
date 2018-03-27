@@ -102,8 +102,12 @@ class VeritransController extends Controller
       }
     }
 
-    public function notification()
+    public function notification(Request $request)
     {
+       $vt = new Veritrans;
+	
+        $result = $request;
+        $order_id = $request->order_id;
         $totalprice = Order::find($order_id)->value('total_price');
 
         $order_items = OrderItem::where('order_id',$order_id)->get();
@@ -116,7 +120,7 @@ class VeritransController extends Controller
         }
 
         Order::find($order_id)->update([
-          'order_status' => $transaction,
+          'order_status' => 'On Process',
           'payment_date' => date('Y-m-d'),
           'payment_amount' => $totalprice,
           'shipment_status' => 'On Process',
