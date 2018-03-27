@@ -9,8 +9,8 @@ class ProductDetailController extends Controller
 {
   public function getProductDetail()
   {
-  return ProductDetail::all();
-}
+    return ProductDetail::all();
+  }
 
 public function insertProductDetail(Request $request){
   try{

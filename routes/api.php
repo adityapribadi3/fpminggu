@@ -70,7 +70,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
 });
 Route::get('product/{id}','ProductController@getProductById');
 Route::post('vt_notif','VeritransController@notification');
-
+Route::get('view_top_product','ProductController@getTopProduct');
 
 Route::get('viewp/{name}', 'ProductController@getProduct');
 Route::post('insertp', 'ProductController@insertProduct');

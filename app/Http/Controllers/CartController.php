@@ -71,12 +71,12 @@ public function insertCart(Request $request){
       }
 
         return response([
-          'msg'=>'success',
+          'msg'=>'Added to cart',
         ],200);
 
     }catch(Exception $error){
       return response([
-        'msg'=>'fail'
+        'msg'=>'Fail to update cart'
       ],400);
   }
 }

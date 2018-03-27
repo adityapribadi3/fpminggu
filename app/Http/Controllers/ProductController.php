@@ -22,6 +22,16 @@ class ProductController extends Controller
     return $products;
   }
 
+  public function getTopProduct()
+  {
+    $products = Product::orderBy('product_sold')->take(6)->get();
+
+    foreach($products as $product){
+      $product->productdetails;
+    }
+    return $product;
+  }
+
   public function validateQty(Request $request, $id, $qty){
     $stock = Product::find($id)->value('product_qty');
     $productname = Product::find($id)->value('product_name');
@@ -39,8 +49,8 @@ class ProductController extends Controller
   {
     $product = Product::where('id',$id)->first();
     $product_details = $product->productdetails;
-    $arr=$product;
-    return $arr;
+
+    return $products;
   }
 
 public function insertProduct(Request $request){
