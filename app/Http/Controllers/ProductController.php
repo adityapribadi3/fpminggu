@@ -24,12 +24,12 @@ class ProductController extends Controller
 
   public function getTopProduct()
   {
-    $products = Product::orderBy('product_sold')->take(6)->get();
+    $products = Product::orderBy('product_sold','DESC')->paginate(6);
 
     foreach($products as $product){
       $product->productdetails;
     }
-    return $product;
+    return $products;
   }
 
   public function validateQty(Request $request, $id, $qty){
@@ -50,7 +50,7 @@ class ProductController extends Controller
     $product = Product::where('id',$id)->first();
     $product_details = $product->productdetails;
 
-    return $products;
+    return $product;
   }
 
 public function insertProduct(Request $request){
