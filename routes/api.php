@@ -93,3 +93,5 @@ Route::get('viewcd', 'CategoryDetailController@getCategoryDetail');
 Route::post('insertcd', 'CategoryDetailController@insertCategoryDetail');
 Route::delete('deletecd', 'CategoryDetailController@deleteCategoryDetail');
 Route::put('updatecd', 'CategoryDetailController@updateCategoryDetail');
+
+Route::get('search','Search@search');
