@@ -15,7 +15,7 @@ class Search extends Controller
             ->orWhere('product_description','LIKE',"%$keyword%")
             ->orWhereHas('productdetails', function ($query) use ($keyword) {
               $query->where('value', 'LIKE', "%$keyword%");
-            })->paginatete(12);
+            })->paginate(12);
 
       if(count($ret)>0)
       {
