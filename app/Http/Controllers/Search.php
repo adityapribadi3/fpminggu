@@ -17,6 +17,13 @@ class Search extends Controller
               $query->where('value', 'LIKE', "%$keyword%");
             })->paginatete(12);
 
-      return $ret;
+      if(count($ret)>0)
+      {
+        return response()->json($res,200);
+      }
+      else
+      {
+          return response(['msg' => 'Your keyword does not match with'],400);
+      }
     }
 }
