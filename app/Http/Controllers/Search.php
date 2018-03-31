@@ -17,13 +17,17 @@ class Search extends Controller
               $query->where('value', 'LIKE', "%$keyword%");
             })->paginate(12);
 
+      foreach($ret as $re){
+        $re->productdetails;
+      }
+
       if(count($ret)>0)
       {
-        return response()->json($res,200);
+        return response()->json($ret,200);
       }
       else
       {
-          return response(['msg' => 'Your keyword does not match with'],400);
+          return response(['msg' => 'Your keyword does not match with any of our data'],400);
       }
     }
 }

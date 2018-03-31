@@ -28,6 +28,7 @@ class VeritransController extends Controller
       $address_id = $order->shipment_address_id;
       $address = $user->useraddress->where('id',$address_id)->first();
       $order_items = $order->orderitems;
+      $errors = array();
 
       foreach($order_items as $item){
         $product = $item->products;
@@ -45,13 +46,19 @@ class VeritransController extends Controller
       foreach($order_items as $item){
         $product_details = $item->products;
 
-        $temp = array(
-          'product_id' => $product_details->product_id,
-          'price' => $item->price,
-          'quantity' => $item->qty,
-          'name' => $product_details->product_name
-        );
-        array_push($items,$temp);
+        $product_stock = Product::find($item->product_id)->product_qty;
+        $product_name = Product::find($item->product_id)->product_name;
+        if($item->qty <= $product_stock){
+          $temp = array(
+            'product_id' => $product_details->product_id,
+            'price' => $item->price,
+            'quantity' => $item->qty,
+            'name' => $product_details->product_name
+          );
+          array_push($items,$temp);
+        } else {
+          array_push($errors,'Sorry! Our stock for '.$product_name.' is not enough.');
+        }
 
       }
       // Populate customer's billing address
@@ -93,19 +100,23 @@ class VeritransController extends Controller
 
       try
       {
+        if(count($errors)>0){
+          return response(['msg' => $errors],400);
+        } else {
           $vtweb_url = $vt->vtweb_charge($transaction_data);
-          return response(['url' => $vtweb_url]);
+          return response(['url' => $vtweb_url],200);
+        }
       }
       catch (Exception $e)
       {
-          return response(['err' => $e->getMessage]);
+          return response(['err' => $e->getMessage],500);
       }
     }
 
     public function notification(Request $request)
     {
        $vt = new Veritrans;
-	
+
         $result = $request;
         $order_id = $request->order_id;
         $totalprice = Order::find($order_id)->value('total_price');
@@ -123,7 +134,7 @@ class VeritransController extends Controller
           'order_status' => 'On Process',
           'payment_date' => date('Y-m-d'),
           'payment_amount' => $totalprice,
-          'shipment_status' => 'On Process',
+          'shipment_status' => 'Packaging',
           'payment_status' => 'Verified'
         ]);
 
