@@ -7,6 +7,7 @@ use App\Product;
 use App\Categories;
 use Elasticsearch\ClientBuilder;
 use Elastica\Client as ElasticaClient;
+use JWTAuth;
 
 class ProductController extends Controller
 {
@@ -43,17 +44,24 @@ class ProductController extends Controller
     return $products;
   }
 
-  public function validateQty(Request $request, $id, $qty){
-    $stock = Product::find($id)->value('product_qty');
-    $productname = Product::find($id)->value('product_name');
-    $integer_qty = (int)$qty;
+  public function validateQty(Request $request, $order_id){
+    $user = JWTAuth::toUser();
+    $orders = $user->orders;
 
-    if($stock>=$integer_qty){
-      return response(['msg'=>'enough'],200);
-    } else {
-      return response(['msg'=>'Our stock for '.$productname.' is not enough'],400);
+    foreach($orders as $order){
+      if($order->id == $order_id){
+        $items =  $order->orderitems;
+        foreach($items as $item){
+          $stock = Product::where('id','=',$item->product_id)->value('product_qty');
+
+          if($item->qty > $stock) {
+            return response(['msg' => 'Not enough stock'],400);
+          } else {
+            return response(['msg' => 'OK'],200);
+          }
+        }
+      }
     }
-
   }
 
   public function getProductById(Request $request,$id)

@@ -65,6 +65,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   // Route::post('orderitem', 'OrderItemController@insertOrderItem');
   // Route::delete('orderitem', 'OrderItemController@deleteOrderItem');
   // Route::put('orderitem', 'OrderItemController@updateOrderItem');
+  Route::get('validateQty/{order_id}','ProductController@validateQty');
 
   Route::get('veritrans_url/{order_id}', 'VeritransController@vtweb');
 });
@@ -82,7 +83,7 @@ Route::get('productdetail', 'ProductDetailController@getProductDetail');
 // Route::post('productdetail', 'ProductDetailController@insertProductDetail');
 // Route::delete('productdetail', 'ProductDetailController@deleteProductDetail');
 // Route::put('productdetail', 'ProductDetailController@updateProductDetail');
-Route::get('validateQty/{id}/{qty}','ProductController@validateQty');
+
 
 Route::get('category', 'CategoryController@getCategory');
 // Route::post('insertcat', 'CategoryController@insertCategory');
