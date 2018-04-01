@@ -20,15 +20,17 @@ class ProductController extends Controller
     $arr= array();
 
     if(count($c_id)!=NULL){
-      return Product::whereIn('category_id',$c_id)->paginate(12);
+      $prod = Product::whereIn('category_id',$c_id)->paginate(12);
+      foreach($prod as $product){
+	$product->productdetails;
+      }
+      return $prod;
     }else{
       $products = Product::where('category_id','=',$cat_id)->paginate(12);
     }
 
-    $res = array();
-
     foreach ($products as $product) {
-      $product->productdetails1;
+      $product->productdetails;
     }
 
     return $products;
