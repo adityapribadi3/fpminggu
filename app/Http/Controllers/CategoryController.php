@@ -11,23 +11,12 @@ class CategoryController extends Controller
   public function getCategory()
   {
     $categories = Categories::all();
-    $parent = Categories::all()->where('parent_category_id','==',NULL);
+    $parent = Categories::where('parent_category_id','=',NULL)->get();
     $arr=array();
 
-    foreach ($categories as $category)
-    {
-      if($category->parent_category_id != null)
-      {
-        array_push($arr,$category);
-      }
-    }
-
     foreach($parent as $par){
-      foreach($arr as $ar){
-        if($ar->parent_category_id==$par->id){
-            $par['children']=$arr;
-        }
-      }
+      $child = Categories::where('parent_category_id','=',$par->id)->get();
+      $par['children']=$child;
     }
 
     return $parent;

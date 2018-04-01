@@ -130,13 +130,13 @@ class VeritransController extends Controller
           $mod->save();
         }
 
-        Order::find($order_id)->update([
-          'order_status' => 'On Process',
-          'payment_date' => date('Y-m-d'),
-          'payment_amount' => $totalprice,
-          'shipment_status' => 'Packaging',
-          'payment_status' => 'Verified'
-        ]);
+        $order = Order::find($order_id);
+        $order->order_status = 'On Process';
+        $order->payment_date = date('Y-m-d');
+        $order->payment_amount = $totalprice;
+        $order->shipment_status = 'Packaging';
+        $order->payment_status = 'Verified';
+        $order->update();
 
         return response(['msg'=>'success'],200);
     }

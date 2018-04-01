@@ -23,75 +23,75 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::get('logout', 'AuthController@logout');
   Route::get('me', 'AuthController@me');
 
-  Route::get('viewua', 'UserController@getUserAccount');
-  Route::post('insertua', 'UserController@insertUserAccount');
-  Route::delete('deleteua', 'UserController@deleteUserAccount');
-  Route::put('updateua', 'UserController@updateUserAccount');
+  // Route::get('viewua', 'UserController@getUserAccount');
+  // Route::post('insertua', 'UserController@insertUserAccount');
+  // Route::delete('deleteua', 'UserController@deleteUserAccount');
+  Route::put('user', 'UserController@updateUserAccount');
   Route::get('validateAddress','UserController@checkAddress');
 
-  Route::get('get_complete_order','OrderController@getCompleteOrder');
+  Route::get('complete_order','OrderController@getCompleteOrder');
 
-  Route::get('viewupm', 'UserPaymentMethodController@getUserPaymentMethod');
-  Route::post('insertupm', 'UserPaymentMethodController@insertUserPaymentMethod');
-  Route::delete('deleteupm', 'UserPaymentMethodController@deleteUserPaymentMethod');
-  Route::put('updateupm', 'UserPaymentMethodController@updateUserPaymentMethod');
+  // Route::get('viewupm', 'UserPaymentMethodController@getUserPaymentMethod');
+  // Route::post('insertupm', 'UserPaymentMethodController@insertUserPaymentMethod');
+  // Route::delete('deleteupm', 'UserPaymentMethodController@deleteUserPaymentMethod');
+  // Route::put('updateupm', 'UserPaymentMethodController@updateUserPaymentMethod');
 
-  Route::get('viewpm', 'PaymentMethodController@getPaymentMethod');
-  Route::post('insertpm', 'PaymentMethodController@insertPaymentMethod');
-  Route::delete('deletepm', 'PaymentMethodController@deletePaymentMethod');
-  Route::put('updatepm', 'PaymentMethodController@updatePaymentMethod');
+  // Route::get('viewpm', 'PaymentMethodController@getPaymentMethod');
+  // Route::post('insertpm', 'PaymentMethodController@insertPaymentMethod');
+  // Route::delete('deletepm', 'PaymentMethodController@deletePaymentMethod');
+  // Route::put('updatepm', 'PaymentMethodController@updatePaymentMethod');
 
-  Route::get('viewuadd', 'UserAddressController@getUserAddress');
-  Route::post('insertuadd', 'UserAddressController@insertUserAddress');
-  Route::delete('deleteuadd/{id}', 'UserAddressController@deleteUserAddress');
-  Route::put('updateuadd', 'UserAddressController@updateUserAddress');
+  Route::get('address', 'UserAddressController@getUserAddress');
+  Route::post('address', 'UserAddressController@insertUserAddress');
+  Route::delete('address/{id}', 'UserAddressController@deleteUserAddress');
+  Route::put('address', 'UserAddressController@updateUserAddress');
 
-  Route::get('viewc', 'CartController@getCart');
+  Route::get('cart', 'CartController@getCart');
   Route::get('validateCart','CartController@checkCart');
-  Route::post('insertc', 'CartController@insertCart');
+  Route::post('cart', 'CartController@insertCart');
   Route::delete('deletec', 'CartController@deleteCart');
-  Route::put('update_cart_qty', 'CartController@updateCartQty');
-  Route::delete('delete_item_cart/{id}', 'CartController@deleteItemFromCart');
+  Route::put('cart', 'CartController@updateCartQty');
+  Route::delete('cart/{id}', 'CartController@deleteItemFromCart');
 
-  Route::get('view_request_order', 'OrderController@getReqOrder');
-  Route::get('view_order_details/{id}','OrderController@getOrderDetails');
-  Route::get('view_order', 'OrderController@getOrder');
-  Route::post('inserto', 'OrderController@insertOrder');
+  Route::get('request_order', 'OrderController@getReqOrder');
+  Route::get('orderitem/{id}','OrderController@getOrderDetails');
+  Route::get('order', 'OrderController@getOrder');
+  Route::post('order', 'OrderController@insertOrder');
   Route::delete('delete_order/{id}', 'OrderController@deleteOrder');
   Route::put('updateo', 'OrderController@updateOrder');
   Route::get('shipment_address/{id}', 'OrderController@getOrderShipmentAddress');
 
-  Route::get('view_order_items/{id}', 'OrderItemController@getOrderItem');
-  Route::post('insertoi', 'OrderItemController@insertOrderItem');
-  Route::delete('deleteoi', 'OrderItemController@deleteOrderItem');
-  Route::put('updateoi', 'OrderItemController@updateOrderItem');
+  Route::get('order_items/{id}', 'OrderItemController@getOrderItem');
+  // Route::post('orderitem', 'OrderItemController@insertOrderItem');
+  // Route::delete('orderitem', 'OrderItemController@deleteOrderItem');
+  // Route::put('orderitem', 'OrderItemController@updateOrderItem');
 
   Route::get('veritrans_url/{order_id}', 'VeritransController@vtweb');
 });
 Route::get('product/{id}','ProductController@getProductById');
 Route::post('vt_notif','VeritransController@notification');
-Route::get('view_top_product','ProductController@getTopProduct');
+Route::get('topproduct','ProductController@getTopProduct');
 
-Route::get('viewp/{name}', 'ProductController@getProduct');
-Route::post('insertp', 'ProductController@insertProduct');
-Route::delete('deletep', 'ProductController@deleteProduct');
-Route::put('updatep', 'ProductController@updateProduct');
+Route::get('category/{name}', 'ProductController@getProduct');
+// Route::post('product', 'ProductController@insertProduct');
+// Route::delete('deletep', 'ProductController@deleteProduct');
+// Route::put('updatep', 'ProductController@updateProduct');
 
 
-Route::get('viewpd', 'ProductDetailController@getProductDetail');
-Route::post('insertpd', 'ProductDetailController@insertProductDetail');
-Route::delete('deletepd', 'ProductDetailController@deleteProductDetail');
-Route::put('updatepd', 'ProductDetailController@updateProductDetail');
-Route::get('validateProductQty/{id}/{qty}','ProductController@validateQty');
+Route::get('productdetail', 'ProductDetailController@getProductDetail');
+// Route::post('productdetail', 'ProductDetailController@insertProductDetail');
+// Route::delete('productdetail', 'ProductDetailController@deleteProductDetail');
+// Route::put('productdetail', 'ProductDetailController@updateProductDetail');
+Route::get('validateQty/{id}/{qty}','ProductController@validateQty');
 
-Route::get('viewcat', 'CategoryController@getCategory');
-Route::post('insertcat', 'CategoryController@insertCategory');
-Route::delete('deletecat', 'CategoryController@deleteCategory');
-Route::put('updatecat', 'CategoryController@updateCategory');
+Route::get('category', 'CategoryController@getCategory');
+// Route::post('insertcat', 'CategoryController@insertCategory');
+// Route::delete('deletecat', 'CategoryController@deleteCategory');
+// Route::put('updatecat', 'CategoryController@updateCategory');
 
-Route::get('viewcd', 'CategoryDetailController@getCategoryDetail');
-Route::post('insertcd', 'CategoryDetailController@insertCategoryDetail');
-Route::delete('deletecd', 'CategoryDetailController@deleteCategoryDetail');
-Route::put('updatecd', 'CategoryDetailController@updateCategoryDetail');
+// Route::get('viewcd', 'CategoryDetailController@getCategoryDetail');
+// Route::post('insertcd', 'CategoryDetailController@insertCategoryDetail');
+// Route::delete('deletecd', 'CategoryDetailController@deleteCategoryDetail');
+// Route::put('updatecd', 'CategoryDetailController@updateCategoryDetail');
 
 Route::get('search','Search@search');

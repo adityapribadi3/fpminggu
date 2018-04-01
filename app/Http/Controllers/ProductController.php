@@ -5,13 +5,30 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Product;
 use App\Categories;
+use Elasticsearch\ClientBuilder;
+use Elastica\Client as ElasticaClient;
 
 class ProductController extends Controller
 {
+
   public function getProduct(Request $request, $name)
   {
     $cat_id = Categories::where('category_name','=',$name)->first()->id;
-    $products = Product::where('category_id','=',$cat_id)->paginate(12);
+    $c_id = Categories::where('parent_category_id','=',$cat_id)->get();
+
+    $arr= array();
+
+    if(count($c_id)!=NULL){
+      foreach($c_id as $id){
+        $test = Product::where('category_id','=',$cat_id)->orWhere('category_id',$id->id)->paginate(12);
+        foreach($test as $tes){
+          array_push($arr,$tes);
+        }
+      }
+      return $test;
+    }else{
+      $products = Product::where('category_id','=',$cat_id)->paginate(12);
+    }
 
     $res = array();
 
@@ -24,7 +41,7 @@ class ProductController extends Controller
 
   public function getTopProduct()
   {
-    $products = Product::orderBy('product_sold','DESC')->paginate(6);
+    $products = Product::orderBy('product_sold','DESC')->paginate(8);
 
     foreach($products as $product){
       $product->productdetails;
