@@ -14,7 +14,7 @@ class OrderController extends Controller
   public function getReqOrder()
   {
     $user = JWTAuth::toUser();
-    $res = Order::where('user_id',$user['id'])->where('order_status','Waiting for payment')->get();
+    $res = Order::where('user_id',$user['id'])->where('order_status','Waiting For Payment')->get();
     return response()->json($res,200);
   }
 
@@ -29,7 +29,7 @@ class OrderController extends Controller
   public function getCompleteOrder()
   {
     $user = JWTAuth::toUser();
-    $res = Order::where('user_id',$user['id'])->where('order_status','Completed')->get();
+    $res = Order::where('user_id',$user['id'])->where('order_status','Complete')->get();
 
     return response()->json($res,200);
   }
