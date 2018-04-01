@@ -4,6 +4,9 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Illuminate\Support\Facades\DB;
+use App\Orders;
+use Illuminate\Database\Eloquent\Model;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +29,12 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+	$schedule->call(function () {
+	    DB::table('orders')
+              ->where('max_payment_date','>',date('Y-m-d'))
+              ->where('payment_status', '!=', 'Verified')
+              ->update(['order_status' => 'expired']);
+        })->timezone('Asia/Bangkok')->everyMinute();
     }
 
     /**
