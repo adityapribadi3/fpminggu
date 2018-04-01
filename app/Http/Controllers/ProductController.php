@@ -14,18 +14,12 @@ class ProductController extends Controller
   public function getProduct(Request $request, $name)
   {
     $cat_id = Categories::where('category_name','=',$name)->first()->id;
-    $c_id = Categories::where('parent_category_id','=',$cat_id)->get();
+    $c_id = Categories::select('id')->where('parent_category_id','=',$cat_id)->get();
 
     $arr= array();
 
     if(count($c_id)!=NULL){
-      foreach($c_id as $id){
-        $test = Product::where('category_id','=',$cat_id)->orWhere('category_id',$id->id)->paginate(12);
-        foreach($test as $tes){
-          array_push($arr,$tes);
-        }
-      }
-      return $test;
+      return Product::whereIn('category_id',$c_id)->paginate(12);
     }else{
       $products = Product::where('category_id','=',$cat_id)->paginate(12);
     }
@@ -33,7 +27,7 @@ class ProductController extends Controller
     $res = array();
 
     foreach ($products as $product) {
-      array_push($res, $product->productdetails);
+      $product->productdetails1;
     }
 
     return $products;

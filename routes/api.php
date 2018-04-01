@@ -49,7 +49,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::get('cart', 'CartController@getCart');
   Route::get('validateCart','CartController@checkCart');
   Route::post('cart', 'CartController@insertCart');
-  Route::delete('deletec', 'CartController@deleteCart');
+  Route::delete('cart', 'CartController@deleteCart');
   Route::put('cart', 'CartController@updateCartQty');
   Route::delete('cart/{id}', 'CartController@deleteItemFromCart');
 
@@ -57,7 +57,7 @@ Route::group(['middleware' => ['jwt.auth']], function() {
   Route::get('orderitem/{id}','OrderController@getOrderDetails');
   Route::get('order', 'OrderController@getOrder');
   Route::post('order', 'OrderController@insertOrder');
-  Route::delete('delete_order/{id}', 'OrderController@deleteOrder');
+  Route::delete('order/{id}', 'OrderController@deleteOrder');
   Route::put('updateo', 'OrderController@updateOrder');
   Route::get('shipment_address/{id}', 'OrderController@getOrderShipmentAddress');
 
